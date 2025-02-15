@@ -1,7 +1,7 @@
 import { useState } from "react"
-import Attendees from "./component/Attendees"
 import Ready from "./component/Ready"
 import SelectTicket from "./component/SelectTicket"
+import AttendeesForm from "./component/Attendees"
 
 function MultiForm() {
     const [subForm, setSubForm] = useState(0)
@@ -9,7 +9,7 @@ function MultiForm() {
     return (
         <form>
             {
-                (subForm == 0)?<SelectTicket subForm={subForm} setSubForm={setSubForm}  />:subForm == 1?<Attendees subForm={subForm} setSubForm={setSubForm} />:<Ready subForm={subForm} setSubForm={setSubForm} />
+                (subForm == 0)?<SelectTicket subForm={subForm} setSubForm={setSubForm}  />:subForm == 1?<AttendeesForm subForm={subForm} setSubForm={setSubForm} />:<Ready subForm={subForm} setSubForm={setSubForm} />
             }
         </form>
   )

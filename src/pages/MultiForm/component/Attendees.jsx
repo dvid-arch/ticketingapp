@@ -125,7 +125,6 @@ const UploadImage = () => {
         </div>
     );
 };
-
 function EnterName({ name, onChange, error }) {
     return (
         <div className="flex text-white flex-col gap-2">
@@ -197,15 +196,31 @@ function Next({ onBack, onSubmit }) {
     );
 }
 
-function AttendeesForm({subForm , setSubForm}) {
+function AttendeesForm({ subForm, setSubForm }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [aboutProject, setAboutProject] = useState("");
     const [errors, setErrors] = useState({});
 
     const validate = () => {
-        if(!email.length && !name.length && !aboutProject.length ) return false
-        return true
+        const newErrors = {};
+
+        if (!name.trim()) {
+            newErrors.name = "Name is required.";
+        }
+
+        if (!email.trim()) {
+            newErrors.email = "Email is required.";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = "Invalid email address.";
+        }
+
+        if (!aboutProject.trim()) {
+            newErrors.aboutProject = "Please provide details about your project.";
+        }
+        setErrors(newErrors)
+        if (email.length && name.length && aboutProject.length) return true
+        return false
     };
 
     const handleSubmit = (e) => {
@@ -218,7 +233,8 @@ function AttendeesForm({subForm , setSubForm}) {
 
     const handleBack = (e) => {
         e.preventDefault()
-        setSubForm(1);
+        console.log('pressed')
+        setSubForm(0);
     };
 
     return (
@@ -237,18 +253,18 @@ function AttendeesForm({subForm , setSubForm}) {
                 <UploadImage />
                 <hr className="h-1 bg-[#07373F]" />
                 <EnterName
-                    name={name}
                     onChange={(e) => setName(e.target.value)}
+                    name={name}
                     error={errors.name}
                 />
                 <EnterEmail
-                    email={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    email={email}
                     error={errors.email}
                 />
                 <AboutProject
-                    aboutProject={aboutProject}
                     onChange={(e) => setAboutProject(e.target.value)}
+                    aboutProject={aboutProject}
                     error={errors.aboutProject}
                 />
                 <Next onBack={handleBack} onSubmit={handleSubmit} />
