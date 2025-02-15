@@ -5,11 +5,12 @@ import Header from "../../../components/Header"
 import Logo from "../../../components/Logo"
 import Attendees from "./Attendees"
 import Ready from "./Ready"
+import Hr from "../../../components/Hr"
 
 function Ticket() {
     return (
         <div className="p-6 rounded-[24px] bg-[radial-gradient(ellipse_at_top_left,rgba(36,160,181,0.3)_20%,rgba(36,160,181,0)_70%)] flex justify-center gap-2 flex-col items-center text-center bg-[#0A0C11]/10 text-white">
-            <h1 className="text-[62px]">Techember Fest "25</h1>
+            <h1 className="text-[32px] sm:text-[48px]">Techember Fest "25</h1>
             <p className="max-w-[340px] text-[16px]">Join us for an unforgettable experience at [Event Name]! Secure your spot now.</p>
             <div className="flex gap-4"><p><code>[</code>Event Location <code>]</code></p> <span>|  |</span> <p>March 15, 2025 | 7:00 PM</p></div>
         </div>
@@ -26,7 +27,7 @@ function SelectType({ selectedTicketType, setSelectedTicketType, error }) {
                     <div
                         key={i}
                         onClick={() => setSelectedTicketType(i)}
-                        className={`flex gap-8 hover:bg-[#197686] justify-between bg-[#052228] p-2 rounded-[12px] ${selectedTicketType === i ? 'bg-[#197686]' : ''}`}
+                        className={`flex items-start gap-2 sm:gap-8 hover:bg-[#197686] justify-between bg-[#052228] p-2 rounded-[12px] ${selectedTicketType === i ? 'bg-[#197686]' : ''}`}
                     >
                         <p>
                             {n.type} <br /> <span className="text-sm"><span>{n.nLeft}</span>! left</span>
@@ -64,7 +65,7 @@ function NumberOfTickets({ numberOfTickets, setNumberOfTickets, error }) {
 
 function Next({ handleCancel, handleNext }) {
     return (
-        <div className="border rounded-[24px] px-12 border-[#2BA4B9] flex justify-center gap-8">
+        <div className="sm:border rounded-[24px] sm:px-12 sm:border-[#2BA4B9] flex flex-col sm:flex-row gap-2 justify-center sm:gap-8">
             <button 
                 onClick={handleCancel} 
                 className="rounded-[8px] capitalize block w-full py-3 px-6 bg-[#041E23] text-white"
@@ -118,11 +119,11 @@ function SelectTicket({ subForm, setSubForm }) {
     }
 
     return (
-        <div className="bg-[#041E23]  p-12 rounded-[40px] flex flex-col gap-8 mx-auto w-full max-w-[700px]">
+        <div className="bg-[#041E23] px-6 py-8 sm:p-12 rounded-[40px] flex flex-col gap-8 mx-auto w-full max-w-[700px]">
             <div className="flex flex-col gap-3 ">
 
-                <div className="flex justify-between gap-3 items-center">
-                    <h1 className="font-serif text-[32px] text-white">{steps[currentStep - 1]}</h1>
+                <div className="flex flex-col  sm:flex-row gap-2 justify-between sm:gap-3 sm:items-center">
+                    <h1 className="font-serif text-[24px] sm:text-[32px] text-white">{steps[currentStep - 1]}</h1>
                     <span className="text-white ">Step <span>{currentStep}</span>/<span>3</span></span>
                 </div>
                 <div className="bg-[#0E464F]">
@@ -132,7 +133,7 @@ function SelectTicket({ subForm, setSubForm }) {
 
             <div className="p-6 w-fit  flex flex-col gap-8 bg-[#08252B] rounded-[32px] border border-[#0E464F]">
                 <Ticket />
-                <hr className="h-1 bg-[#07373F]"></hr>
+                <Hr/>
                 <SelectType
                     selectedTicketType={selectedTicketType}
                     setSelectedTicketType={setSelectedTicketType}

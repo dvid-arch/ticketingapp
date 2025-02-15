@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MailIcon, UploadCloud as UploadCloudIcon, X } from "lucide-react";
+import Hr from '../../../components/Hr';
 
 const UploadImage = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -85,7 +86,7 @@ const UploadImage = () => {
 
                 <div className="w-full bg-black/20">
                     <div
-                        className="p-6 text-center flex flex-col justify-center items-center gap-4 bg-[#0E464F] mx-auto rounded-[32px] w-full max-w-[240px] bg-cover bg-no-repeat aspect-square relative"
+                        className="p-6 text-center flex flex-col justify-center items-center gap-4 bg-[#0E464F] mx-auto rounded-[32px] overflow-hidden w-full max-w-[240px] bg-cover bg-center bg-no-repeat aspect-square relative"
                         onDrop={handleDrop}
                         onDragOver={handleDragOver}
                         style={{ backgroundImage: `url(${previewUrl})` }}
@@ -102,7 +103,7 @@ const UploadImage = () => {
                                 htmlFor="image-input"
                                 className={
                                     previewUrl
-                                        ? "cursor-pointer absolute opacity-0 hover:bg-black/30 hover:opacity-[100%] w-full h-full flex flex-col p-6 items-center justify-center"
+                                        ? "cursor-pointer absolute opacity-0 hover:bg-black/30 hover:opacity-[100%] w-full h-full flex flex-col p-6 items-center justify-center "
                                         : "cursor-pointer w-full h-full flex flex-col items-center justify-center"
                                 }
                                 onClick={handleUpload}
@@ -179,7 +180,7 @@ function AboutProject({ aboutProject, onChange, error }) {
 
 function Next({ onBack, onSubmit }) {
     return (
-        <div className="flex justify-center gap-6">
+        <div className="flex flex-col gap-2 sm:flex-row justify-center sm:gap-6">
             <button
                 onClick={onBack}
                 className="rounded-[8px] capitalize block w-full py-3 px-6 bg-[#041E23] text-white"
@@ -238,12 +239,12 @@ function AttendeesForm({ subForm, setSubForm }) {
     };
 
     return (
-        <div className="bg-[#041E23] p-12 rounded-[40px] flex flex-col gap-8 mx-auto w-full max-w-[700px]">
+        <div className="bg-[#041E23] px-6 py-8 sm:p-12 rounded-[40px] flex flex-col gap-8 mx-auto w-full max-w-[700px]">
             <div className="flex flex-col gap-3 ">
 
                 <div className="flex justify-between gap-3 items-center">
-                    <h1 className="font-serif text-[32px] text-white">Attendees</h1>
-                    <span className="text-white ">Step <span>{2}</span>/<span>3</span></span>
+                    <h1 className="font-serif text-[24px] sm:text-[32px] text-white">Attendees</h1>
+                    <span className="text-white text-[16px]">Step <span>{2}</span>/<span>3</span></span>
                 </div>
                 <div className="bg-[#0E464F]">
                     <span className={`h-1 block bg-[#24A0B5]`} style={{ width: `${(2 / 3) * 100}%` }} ></span>
@@ -251,7 +252,7 @@ function AttendeesForm({ subForm, setSubForm }) {
             </div>
             <div className="p-6 w-full flex flex-col gap-8 bg-[#08252B] rounded-[32px] border border-[#0E464F]">
                 <UploadImage />
-                <hr className="h-1 bg-[#07373F]" />
+                <Hr />
                 <EnterName
                     onChange={(e) => setName(e.target.value)}
                     name={name}
