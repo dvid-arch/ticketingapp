@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MailIcon, UploadCloud as UploadCloudIcon, X } from "lucide-react";
 import Hr from '../../../components/Hr';
-import SubFormHeader from './shared/subFormHeader';
+import SubFormHeader from './common/SubFormHeader';
 
 
 const UploadImage = ({ selectedImage, setSelectedImage, previewUrl, setPreviewUrl }) => {

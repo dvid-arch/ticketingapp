@@ -5,7 +5,7 @@ import Logo from "../../../components/Logo"
 import Attendees from "./Attendees"
 import Ready from "./Ready"
 import Hr from "../../../components/Hr"
-import SubFormHeader from "./shared/subFormHeader"
+import SubFormHeader from "./common/SubFormHeader"
 
 // Constants
 const TICKET_TYPES = [

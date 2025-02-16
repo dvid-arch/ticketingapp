@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import ticket from '../../../assets/tickect.svg'
 import QRCode from 'react-qr-code';
-import SubFormHeader from './shared/subFormHeader';
+import SubFormHeader from './common/SubFormHeader';
 
 
 function Ready({ 
