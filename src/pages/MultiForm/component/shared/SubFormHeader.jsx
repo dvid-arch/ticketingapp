@@ -1,11 +1,10 @@
-import React from 'react'
 
 function SubFormHeader({subForm, subForms}) {
     return (
         <div className="flex flex-col gap-3">
             <div className="flex flex-col sm:flex-row gap-2 justify-between sm:gap-3 sm:items-center">
                 <h1 className="font-serif text-[24px] sm:text-[32px] text-white">
-                    Ticket Selection
+                    {subForms[subForm]}
                 </h1>
                 <span className="text-white text-[16px]">
                     Step {Number(subForm)+1}/3

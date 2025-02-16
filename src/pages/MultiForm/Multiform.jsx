@@ -10,7 +10,10 @@ function MultiForm() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [aboutProject, setAboutProject] = useState("");
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
     const [errors, setErrors] = useState({});
+
     const subForms = ["Ticket Selection", "Attendees", "Ready"]
 
     function clearLocaleStorage() {
@@ -25,13 +28,14 @@ function MultiForm() {
     useEffect(() => {
         localStorage.getItem("selectedTicketType") && setSelectedTicketType(Number(localStorage.getItem('selectedTicketType')))
         localStorage.getItem("numberOfTickets") && setNumberOfTickets(localStorage.getItem("numberOfTickets"))
+        localStorage.getItem("previewUrl") && setPreviewUrl(String(localStorage.getItem("previewUrl")))
         localStorage.getItem("subForm") && setSubForm(Number(localStorage.getItem("subForm")))
         localStorage.getItem("name") && setName(localStorage.getItem("name"))
         localStorage.getItem("email") && setEmail(localStorage.getItem("email"))
         localStorage.getItem("aboutProject") && setAboutProject(localStorage.getItem("aboutProject"))
     }, [])
 
-    
+
 
 
     useEffect(() => {
@@ -66,6 +70,10 @@ function MultiForm() {
                         setEmail={setEmail}
                         aboutProject={aboutProject}
                         setAboutProject={setAboutProject}
+                        selectedImage={selectedImage}
+                        setSelectedImage={setSelectedImage}
+                        previewUrl={previewUrl}
+                        setPreviewUrl={setPreviewUrl}
                         errors={errors}
                         setErrors={setErrors}
                     />

@@ -155,7 +155,7 @@ const SelectTicket = ({
   const handleNext = (e) => {
     e.preventDefault()
     if (validate()) {
-      // localStorage.setItem("subForm", 1)
+      localStorage.setItem("subForm", 1)
       setSubForm(1)
       console.log("Proceeding with:", { selectedTicketType, numberOfTickets })
     }

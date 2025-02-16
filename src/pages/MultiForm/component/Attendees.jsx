@@ -1,14 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MailIcon, UploadCloud as UploadCloudIcon, X } from "lucide-react";
 import Hr from '../../../components/Hr';
 import SubFormHeader from './shared/subFormHeader';
 
-const UploadImage = () => {
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [previewUrl, setPreviewUrl] = useState(null);
+
+const UploadImage = ({ selectedImage, setSelectedImage, previewUrl, setPreviewUrl }) => {
     const [error, setError] = useState(null);
 
-    const handleImageSelect = (event) => {
+    useEffect(() => {
+        // Load saved image from localStorage on component mount
+        const savedImage = localStorage.getItem('previewUrl');
+        if (savedImage) {
+            setPreviewUrl(savedImage);
+        }
+    }, []);
+
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+    };
+
+    const handleImageSelect = async (event) => {
         const file = event.target.files[0];
 
         if (file) {
@@ -24,13 +40,19 @@ const UploadImage = () => {
                 return;
             }
 
-            setSelectedImage(file);
-            setPreviewUrl(URL.createObjectURL(file));
-            setError(null);
+            try {
+                const base64String = await convertToBase64(file);
+                setSelectedImage(file);
+                setPreviewUrl(base64String);
+                localStorage.setItem('previewUrl', base64String);
+                setError(null);
+            } catch (err) {
+                setError('Error processing image');
+            }
         }
     };
 
-    const handleDrop = (event) => {
+    const handleDrop = async (event) => {
         event.preventDefault();
         const file = event.dataTransfer.files[0];
 
@@ -45,9 +67,15 @@ const UploadImage = () => {
                 return;
             }
 
-            setSelectedImage(file);
-            setPreviewUrl(URL.createObjectURL(file));
-            setError(null);
+            try {
+                const base64String = await convertToBase64(file);
+                setSelectedImage(file);
+                setPreviewUrl(base64String);
+                localStorage.setItem('previewUrl', base64String);
+                setError(null);
+            } catch (err) {
+                setError('Error processing image');
+            }
         }
     };
 
@@ -58,6 +86,7 @@ const UploadImage = () => {
     const removeImage = () => {
         setSelectedImage(null);
         setPreviewUrl(null);
+        localStorage.removeItem('previewUrl');
         setError(null);
     };
 
@@ -104,10 +133,9 @@ const UploadImage = () => {
                                 htmlFor="image-input"
                                 className={
                                     previewUrl
-                                        ? "cursor-pointer absolute opacity-0 hover:bg-black/30 hover:opacity-[100%] w-full h-full flex flex-col p-6 items-center justify-center "
+                                        ? "cursor-pointer absolute opacity-0 hover:bg-black/30 hover:opacity-[100%] w-full h-full flex flex-col p-6 items-center justify-center"
                                         : "cursor-pointer w-full h-full flex flex-col items-center justify-center"
                                 }
-                                onClick={handleUpload}
                             >
                                 <UploadCloudIcon className="w-8 h-8" />
                                 <p className="text-[16px] text-white">
@@ -127,6 +155,8 @@ const UploadImage = () => {
         </div>
     );
 };
+
+
 
 function EnterName({ name, onChange, error }) {
     return (
@@ -209,6 +239,10 @@ function AttendeesForm({
     setEmail,
     aboutProject,
     setAboutProject,
+    selectedImage,
+    setSelectedImage,
+    previewUrl,
+    setPreviewUrl,
     errors,
     setErrors }) {
 
@@ -244,6 +278,7 @@ function AttendeesForm({
         if (validate()) {
             // localStorage.setItem('subForm', 2)
             setSubForm(2)
+            localStorage.setItem('subForm', 2)
             console.log("Form submitted:", { name, email, aboutProject });
         }
     };
@@ -251,8 +286,9 @@ function AttendeesForm({
     const handleBack = (e) => {
         e.preventDefault()
         console.log('pressed')
-        // localStorage.setItem('subForm', 0)
+        localStorage.setItem('subForm', 0)
         setSubForm(0);
+
     };
 
     return (
@@ -260,7 +296,7 @@ function AttendeesForm({
             <SubFormHeader subForm={subForm} subForms={subForms} />
 
             <div className="p-6 w-full flex flex-col gap-8 bg-[#08252B] rounded-[32px] border border-[#0E464F]">
-                <UploadImage />
+                <UploadImage selectedImage={selectedImage} setSelectedImage={setSelectedImage} previewUrl={previewUrl} setPreviewUrl={setPreviewUrl} />
                 <Hr />
                 <EnterName
                     onChange={(e) => setName(e.target.value)}
