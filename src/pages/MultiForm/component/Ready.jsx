@@ -1,31 +1,35 @@
+import { useEffect } from 'react';
 import ticket from '../../../assets/tickect.svg'
 import QRCode from 'react-qr-code';
+import SubFormHeader from './shared/subFormHeader';
 
 
-function Ready({handleBookAnother}) {
+function Ready({ 
+    subForm,
+    subForms,
+    
+ }) {
 
-    function handledBookAnother(e){
+    useEffect(() => {
+        // Scroll to top on route change
+        window.scrollTo(0, 0);
+    }, []);
+
+
+    function handledBookAnother(e) {
         e.preventDefault()
         console.log('booking another')
     }
-    function handleDownload(){
+    function handleDownload() {
         e.preventDefault()
         console.log('trying to download')
     }
 
-    
+
     return (
         <div className="bg-[#041E23]  px-6 py-8 sm:p-12 rounded-[40px] flex flex-col gap-8 mx-auto w-full max-w-[700px]">
-            <div className="flex flex-col gap-3 ">
+            <SubFormHeader subForm={subForm} subForms={subForms}  />
 
-                <div className="flex justify-between gap-3 items-start sm:items-center">
-                    <h1 className="font-serif text-[24px] sm:text-[32px] text-white ">Ready</h1>
-                    <span className="text-white text-[16px]">Step <span>{3}</span>/<span>3</span></span>
-                </div>
-                <div className="bg-[#0E464F]">
-                    <span className={`h-1 block bg-[#24A0B5]`} style={{ width: `${(3 / 3) * 100}%` }} ></span>
-                </div>
-            </div>
             <div className="w-full  flex flex-col gap-8 " >
                 <div className='text-white sm:text-center flex flex-col gap-4'>
                     <h2 className='text-[32px]'>Your Ticket is Booked</h2>

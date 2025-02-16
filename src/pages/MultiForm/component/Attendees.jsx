@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MailIcon, UploadCloud as UploadCloudIcon, X } from "lucide-react";
 import Hr from '../../../components/Hr';
+import SubFormHeader from './shared/subFormHeader';
 
 const UploadImage = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -126,6 +127,7 @@ const UploadImage = () => {
         </div>
     );
 };
+
 function EnterName({ name, onChange, error }) {
     return (
         <div className="flex text-white flex-col gap-2">
@@ -197,11 +199,24 @@ function Next({ onBack, onSubmit }) {
     );
 }
 
-function AttendeesForm({ subForm, setSubForm }) {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [aboutProject, setAboutProject] = useState("");
-    const [errors, setErrors] = useState({});
+function AttendeesForm({
+    subForm,
+    subForms,
+    setSubForm,
+    name,
+    setName,
+    email,
+    setEmail,
+    aboutProject,
+    setAboutProject,
+    errors,
+    setErrors }) {
+
+
+    useEffect(() => {
+        // Scroll to top on route change
+        window.scrollTo(0, 0);
+    }, []);
 
     const validate = () => {
         const newErrors = {};
@@ -227,6 +242,7 @@ function AttendeesForm({ subForm, setSubForm }) {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (validate()) {
+            // localStorage.setItem('subForm', 2)
             setSubForm(2)
             console.log("Form submitted:", { name, email, aboutProject });
         }
@@ -235,21 +251,14 @@ function AttendeesForm({ subForm, setSubForm }) {
     const handleBack = (e) => {
         e.preventDefault()
         console.log('pressed')
+        // localStorage.setItem('subForm', 0)
         setSubForm(0);
     };
 
     return (
         <div className="bg-[#041E23] px-6 py-8 sm:p-12 rounded-[40px] flex flex-col gap-8 mx-auto w-full max-w-[700px]">
-            <div className="flex flex-col gap-3 ">
+            <SubFormHeader subForm={subForm} subForms={subForms} />
 
-                <div className="flex justify-between gap-3 items-center">
-                    <h1 className="font-serif text-[24px] sm:text-[32px] text-white">Attendees</h1>
-                    <span className="text-white text-[16px]">Step <span>{2}</span>/<span>3</span></span>
-                </div>
-                <div className="bg-[#0E464F]">
-                    <span className={`h-1 block bg-[#24A0B5]`} style={{ width: `${(2 / 3) * 100}%` }} ></span>
-                </div>
-            </div>
             <div className="p-6 w-full flex flex-col gap-8 bg-[#08252B] rounded-[32px] border border-[#0E464F]">
                 <UploadImage />
                 <Hr />
