@@ -35,7 +35,7 @@ const SelectType = ({ selectedTicketType, setSelectedTicketType, error }) => {
 
   function handleSelect(index) {
     setSelectedTicketType(index)
-    // localStorage.setItem('selectedTicketType', index)
+    localStorage.setItem('selectedTicketType', index)
   }
 
   return (
@@ -67,28 +67,36 @@ const SelectType = ({ selectedTicketType, setSelectedTicketType, error }) => {
   )
 }
 
-const NumberOfTickets = ({ numberOfTickets, setNumberOfTickets, error }) => (
-  <div className="flex flex-col gap-2 text-white">
-    <label htmlFor="number_of_tickets">Number of Tickets</label>
-    <select
-      name="number_of_tickets"
-      value={numberOfTickets}
-      onChange={(e) => setNumberOfTickets(e.target.value)}
-      className="block w-full p-3 bg-transparent border overflow-hidden border-[#2BA4B9] rounded-[12px]"
-      id="number_of_tickets"
-      aria-invalid={error ? "true" : "false"}
-    >
-      {[1, 2, 3].map((num) => (
-        <option key={num} className="text-black border" value={num}>
-          {num}
-        </option>
-      ))}
-    </select>
-    {error && !numberOfTickets && (
-      <p className="text-red-500 text-sm mt-1" role="alert">{error}</p>
-    )}
-  </div>
-)
+const NumberOfTickets = ({ numberOfTickets, setNumberOfTickets, error }) => {
+
+  function handleOnChange(e) {
+    setNumberOfTickets(e.target.value)
+    localStorage.setItem('numberOfTickets', e.target.value)
+  }
+
+  return (
+    <div className="flex flex-col gap-2 text-white">
+      <label htmlFor="number_of_tickets">Number of Tickets</label>
+      <select
+        name="number_of_tickets"
+        value={numberOfTickets}
+        onChange={handleOnChange}
+        className="block w-full p-3 bg-transparent border overflow-hidden border-[#2BA4B9] rounded-[12px]"
+        id="number_of_tickets"
+        aria-invalid={error ? "true" : "false"}
+      >
+        {[1, 2, 3].map((num) => (
+          <option key={num} className="text-black border" value={num}>
+            {num}
+          </option>
+        ))}
+      </select>
+      {error && !numberOfTickets && (
+        <p className="text-red-500 text-sm mt-1" role="alert">{error}</p>
+      )}
+    </div>
+  )
+}
 
 const ActionButtons = ({ onCancel, onNext }) => (
   <div className="sm:border rounded-[24px] sm:px-12 sm:border-[#2BA4B9] flex flex-col sm:flex-row gap-2 justify-center sm:gap-8">
@@ -119,19 +127,15 @@ const SelectTicket = ({
   numberOfTickets,
   setNumberOfTickets,
   errors,
-  setErrors }) => {
+  setErrors,
+  clearLocaleStorage
+}) => {
 
   useEffect(() => {
     // Scroll to top on route change
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    if (localStorage.getItem("selectedTicketType")) {
-      console.log('reached here')
-      setSelectedTicketType(localStorage.getItem("selectedTicketType"))
-    }
-  }, [])
 
 
   const validate = () => {
@@ -157,14 +161,20 @@ const SelectTicket = ({
     }
   }
 
+  function clearChoices() {
+    clearLocaleStorage()
+  }
+
   const handleCancel = () => {
     console.log("Cancelled")
-    // Add cancel logic here
+    clearChoices()
+
   }
 
   return (
     <div className="bg-[#041E23] px-6 py-8 sm:p-12 rounded-[40px] flex flex-col gap-8 mx-auto  max-w-[700px]">
-      <SubFormHeader subForm={subForm} subForms={subForms}  />
+
+      <SubFormHeader subForm={subForm} subForms={subForms} />
 
       <div className="p-6 flex flex-col gap-8 bg-[#08252B] rounded-[32px] border border-[#0E464F]">
         <Ticket />

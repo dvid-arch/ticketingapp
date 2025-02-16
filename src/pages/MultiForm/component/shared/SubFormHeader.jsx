@@ -8,15 +8,15 @@ function SubFormHeader({subForm, subForms}) {
                     Ticket Selection
                 </h1>
                 <span className="text-white text-[16px]">
-                    Step {subForm+1}/3
+                    Step {Number(subForm)+1}/3
                 </span>
             </div>
             <div className="bg-[#0E464F] ">
                 <span
                     className="h-1 block bg-[#24A0B5]"
-                    style={{ width: `${((subForm+1) / 3) * 100}%` }}
+                    style={{ width: `${((Number(subForm)+1) / 3) * 100}%` }}
                     role="progressbar"
-                    aria-valuenow={((subForm+1) / 3) * 100}
+                    aria-valuenow={((Number(subForm)+1) / 3) * 100}
                     aria-valuemin="0"
                     aria-valuemax="100"
                 />

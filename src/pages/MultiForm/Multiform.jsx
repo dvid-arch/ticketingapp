@@ -6,15 +6,35 @@ import AttendeesForm from "./component/Attendees"
 function MultiForm() {
     const [subForm, setSubForm] = useState(0)
     const [selectedTicketType, setSelectedTicketType] = useState(null)
-    const [numberOfTickets, setNumberOfTickets] = useState('1')
+    const [numberOfTickets, setNumberOfTickets] = useState(1)
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [aboutProject, setAboutProject] = useState("");
     const [errors, setErrors] = useState({});
-    const subForms = ["Ticket Selection","Attendees","Ready"]
-    
+    const subForms = ["Ticket Selection", "Attendees", "Ready"]
+
+    function clearLocaleStorage() {
+        localStorage.removeItem('selectedTicketType')
+        localStorage.removeItem("numberOfTickets")
+        localStorage.removeItem("subForm")
+        localStorage.removeItem("name")
+        localStorage.removeItem("email")
+        localStorage.removeItem("aboutProject")
+    }
+
     useEffect(() => {
-     
+        localStorage.getItem("selectedTicketType") && setSelectedTicketType(Number(localStorage.getItem('selectedTicketType')))
+        localStorage.getItem("numberOfTickets") && setNumberOfTickets(localStorage.getItem("numberOfTickets"))
+        localStorage.getItem("subForm") && setSubForm(Number(localStorage.getItem("subForm")))
+        localStorage.getItem("name") && setName(localStorage.getItem("name"))
+        localStorage.getItem("email") && setEmail(localStorage.getItem("email"))
+        localStorage.getItem("aboutProject") && setAboutProject(localStorage.getItem("aboutProject"))
+    }, [])
+
+    
+
+
+    useEffect(() => {
         if (localStorage.getItem("subForm")) {
             setSubForm(localStorage.getItem("subForm"))
         }
@@ -34,6 +54,7 @@ function MultiForm() {
                     setNumberOfTickets={setNumberOfTickets}
                     errors={errors}
                     setErrors={setErrors}
+                    clearLocaleStorage={clearLocaleStorage}
                 />
                     : subForm == 1 ? <AttendeesForm
                         subForm={subForm}
