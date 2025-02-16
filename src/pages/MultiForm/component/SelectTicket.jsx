@@ -11,7 +11,7 @@ function Ticket() {
         <div className="p-6 rounded-[24px] bg-[radial-gradient(ellipse_at_top_left,rgba(36,160,181,0.3)_20%,rgba(36,160,181,0)_70%)] flex justify-center gap-2 flex-col items-center text-center bg-[#0A0C11]/10 text-white">
             <h1 className="text-[32px] sm:text-[48px]">Techember Fest "25</h1>
             <p className="max-w-[340px] text-[16px]">Join us for an unforgettable experience at [Event Name]! Secure your spot now.</p>
-            <div className="flex gap-4"><p><code>[</code>Event Location <code>]</code></p> <span>|  |</span> <p>March 15, 2025 | 7:00 PM</p></div>
+            <div className="flex flex-col gap-1 sm:gap-4"><p><code>[</code>Event Location <code>]</code></p> <span className="hidden sm:block">|  |</span> <p>March 15, 2025 | 7:00 PM</p></div>
         </div>
     )
 }
