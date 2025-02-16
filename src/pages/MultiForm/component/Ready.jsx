@@ -65,7 +65,7 @@ function Ready({handleBookAnother}) {
 
 
                     <div className="sm:border rounded-[24px] w-full sm:px-12 sm:border-[#0E464F] flex flex-col-reverse sm:flex-row justify-center gap-2 md:gap-8">
-                        <button onClick={handledBookAnother} className="rounded-[8px] capitalize block w-full py-3 px-6 border border-[#2BA4B9] bg-[#041E23] text-white">
+                        <button onClick={handledBookAnother} className="rounded-[8px] capitalize block w-full py-3 px-6 border border-[#2BA4B9] bg-[#041E23] text-[#24A0B5]">
                             Book Another Ticket
                         </button>
                         <button onClick={handleDownload} className="rounded-[8px] capitalize block w-full py-3 px-6 bg-[#2BA4B9] border border-[#2BA4B9] text-white">

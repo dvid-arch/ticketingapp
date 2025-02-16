@@ -1,6 +1,5 @@
 import { useState } from "react"
 import Button from "../../../components/Button"
-
 import Header from "../../../components/Header"
 import Logo from "../../../components/Logo"
 import Attendees from "./Attendees"
@@ -18,7 +17,7 @@ function Ticket() {
 }
 
 function SelectType({ selectedTicketType, setSelectedTicketType, error }) {
-    const tickets = [{ type: "Regular Access", nLeft: 20 }, { type: "VIP Access", nLeft: 20 }, { type: "VVIP Access", nLeft: 20 }]
+    const tickets = [{ type: "Regular Access", nLeft: 20, amt:'Free' }, { type: "VIP Access", nLeft: 20, amt:'$50' }, { type: "VVIP Access", nLeft: 20, amt:'$150' }]
     return (
         <div className="flex flex-col gap-2 text-white">
             <h2 className="text-[16px]">Select Ticket Type:</h2>
@@ -27,12 +26,12 @@ function SelectType({ selectedTicketType, setSelectedTicketType, error }) {
                     <div
                         key={i}
                         onClick={() => setSelectedTicketType(i)}
-                        className={`flex items-start gap-2 sm:gap-8 hover:bg-[#197686] justify-between bg-[#052228] p-2 rounded-[12px] ${selectedTicketType === i ? 'bg-[#197686]' : ''}`}
+                        className={`flex items-start border border-[#07373F] gap-2 sm:gap-8 hover:bg-[#197686] justify-between bg-[#052228] p-2 rounded-[12px] ${selectedTicketType === i ? 'bg-[#197686]' : ''}`}
                     >
                         <p>
                             {n.type} <br /> <span className="text-sm"><span>{n.nLeft}</span>! left</span>
                         </p>
-                        <span className="w-20 border border-[#2BA4B9] text-right bg-[#0E464F] p-2 rounded-[8px]">Free</span>
+                        <span className="w-20 border font-semibold border-[#2BA4B9] text-right bg-[#0E464F] p-2 rounded-[8px]">{n.amt}</span>
                     </div>
                 ))}
             </div>
@@ -44,15 +43,14 @@ function SelectType({ selectedTicketType, setSelectedTicketType, error }) {
 function NumberOfTickets({ numberOfTickets, setNumberOfTickets, error }) {
     return (
         <div className="flex flex-col gap-2 text-white">
-            <h2>Number of Tickets</h2>
+            <label htmlFor="number_of_tickets">Number of Tickets</label>
             <select
                 name="number_of_tickets"
                 value={numberOfTickets}
                 onChange={(e) => setNumberOfTickets(e.target.value)}
                 className="block w-full p-3 bg-transparent border overflow-hidden  border-[#2BA4B9] rounded-[12px]"
-                id="not"
+                id="number_of_tickets"
             >
-                <option className="text-black border rounded-md block" value="">Select a number</option>
                 <option className="text-black border" value="1">1</option>
                 <option className="text-black border" value="2">2</option>
                 <option className="text-black border" value="3">3</option>
@@ -68,7 +66,7 @@ function Next({ handleCancel, handleNext }) {
         <div className="sm:border rounded-[24px] sm:px-12 sm:border-[#2BA4B9] flex flex-col sm:flex-row gap-2 justify-center sm:gap-8">
             <button 
                 onClick={handleCancel} 
-                className="rounded-[8px] capitalize block w-full py-3 px-6 bg-[#041E23] text-white"
+                className="rounded-[8px] capitalize block w-full py-3 px-6  bg-[#041E23] text-[#24A0B5]"
             >
                 Cancel
             </button>

@@ -108,7 +108,7 @@ const UploadImage = () => {
                                 }
                                 onClick={handleUpload}
                             >
-                                <UploadCloudIcon className="w-12 h-12" />
+                                <UploadCloudIcon className="w-8 h-8" />
                                 <p className="text-[16px] text-white">
                                     Drag & drop or click to upload
                                 </p>
